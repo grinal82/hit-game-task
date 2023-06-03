@@ -7,7 +7,7 @@ for (let el of idArray) {
   let getHole = document.getElementById(el.id);
   getHole.onclick = () => {
     if (getHole.className.includes("hole_active")) {
-      if (Number(dead.textContent) < 9) {
+      if (Number(dead.textContent) <= 8) {
         dead.textContent = Number(dead.textContent) + 1;
       } else {
         alert("You have won!!!");
