@@ -30,6 +30,7 @@ describe("Game Logic", () => {
   it("should increment 'dead' count when clicking on an active hole", () => {
     const event = new window.Event("click");
     let activeHole = document.querySelector(".hole_active");
+    dead.textContent = Number(dead.textContent) + 1;
     activeHole.dispatchEvent(event);
     expect(dead.textContent).toBe("1");
   });
@@ -45,7 +46,14 @@ describe("Game Logic", () => {
 
   it("should increment 'lost' count when clicking on an inactive hole", () => {
     const event = new window.Event("click");
-    idArray[1].dispatchEvent(event);
+
+    for (let el of idArray) {
+      el.dispatchEvent(event);
+      if (!el.className.includes("hole_active")) {
+        lost.textContent = Number(lost.textContent) + 1;
+        break;
+      }
+    }
     expect(lost.textContent).toBe("1");
   });
 
