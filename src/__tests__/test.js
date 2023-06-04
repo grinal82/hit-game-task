@@ -1,5 +1,4 @@
 import { JSDOM } from "jsdom";
-import { spy } from "sinon";
 
 describe("Game Logic", () => {
   let dead;
@@ -19,7 +18,9 @@ describe("Game Logic", () => {
       </html>
     `);
 
+    // eslint-disable-next-line no-undef
     global.document = dom.window.document;
+    // eslint-disable-next-line no-undef
     global.window = dom.window;
 
     dead = document.getElementById("dead");
