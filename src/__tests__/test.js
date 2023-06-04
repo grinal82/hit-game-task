@@ -36,7 +36,7 @@ describe("Game Logic", () => {
     expect(dead.textContent).toBe("1");
   });
 
-  it("should reset 'dead' and 'lost' counts and show a winning alert when 'dead' count reaches 9", () => {
+  it("should reset 'dead' and 'lost' counts", () => {
     const event = new window.Event("click");
     for (let i = 0; i < 9; i++) {
       idArray[0].dispatchEvent(event);
