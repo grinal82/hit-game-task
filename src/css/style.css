@@ -1,3 +1,7 @@
+html, body {
+    cursor: url(../img/hammer.png), auto;
+}
+
 .card {
     width: 600px;
     margin-bottom: 0;
