@@ -1,31 +1,38 @@
 const dead = document.getElementById("dead");
 const lost = document.getElementById("lost");
+const game = document.querySelector(".hole-game");
 
-let idArray = document.querySelectorAll(".hole");
+let holes = document.querySelectorAll(".hole");
 
-for (let el of idArray) {
-  let getHole = document.getElementById(el.id);
-  let clicked = false; // флаг чтобы отслеживать что не было клика
+let lastTarget = Math.floor(Math.random() * holes.length);
+console.log(lastTarget);
 
-  getHole.addEventListener("click", () => {
-    if (getHole.className.includes("hole_active") && !clicked) {
-      if (Number(dead.textContent) < 8) {
-        dead.textContent = Number(dead.textContent) + 1;
-        clicked = true; // переводим флаг в true
-      } else {
-        alert("You have won!!!");
-        dead.textContent = 0;
-        lost.textContent = 0;
-      }
-    } else if (getHole.className.includes("hole") && !clicked) {
-      if (Number(lost.textContent) < 4) {
-        lost.textContent = Number(lost.textContent) + 1;
-        clicked = true; // переводим флаг в true
-      } else {
-        alert("Sorry, but you've LOST!\nTry again!");
-        dead.textContent = 0;
-        lost.textContent = 0;
-      }
-    }
-  });
-}
+const removeActiveByIndex = (index) =>
+  holes[index].classList.remove("hole_active");
+const appendActiveByIndex = (index) =>
+  holes[index].classList.add("hole_active");
+
+const intervalHandler = () => {
+  removeActiveByIndex(lastTarget);
+  lastTarget = Math.floor(Math.random() * holes.length);
+  appendActiveByIndex(lastTarget);
+  timeout = setTimeout(intervalHandler, 1000);
+};
+
+let timeout = setTimeout(intervalHandler, 1000);
+
+game.onclick = function (event) {
+  let target = event.target;
+  console.log(target);
+  if (target.classList.contains("hole_active")) {
+    removeActiveByIndex(lastTarget);
+    dead.textContent = Number(dead.textContent) + 1;
+    clearTimeout(timeout);
+    timeout = setTimeout(intervalHandler, 1000);
+  } else {
+    removeActiveByIndex(lastTarget);
+    lost.textContent = Number(lost.textContent) + 1;
+    clearTimeout(timeout);
+    timeout = setTimeout(intervalHandler, 1000);
+  }
+};
